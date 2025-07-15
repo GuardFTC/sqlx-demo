@@ -29,4 +29,7 @@ func sqliteTest() {
 
 	//5.查询数据
 	sqlite.Select()
+
+	//6.更新数据
+	sqlite.Update()
 }

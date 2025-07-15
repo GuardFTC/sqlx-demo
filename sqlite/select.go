@@ -4,6 +4,7 @@ package sqlite
 import (
 	"log"
 
+	"github.com/jmoiron/sqlx"
 	"sqlx-demo/model"
 )
 
@@ -22,6 +23,28 @@ func Select() {
 
 	//3.遍历结构体切片
 	log.Println("批量查询数据：----------------------------------------------------------------------------------------")
+	for _, student := range students {
+		log.Printf("id:%d, name:%s, age:%d, gender:%s, email:%s, created_at:%s\n", student.ID, student.Name, student.Age, student.Gender, student.Email, student.CreatedAt)
+	}
+
+	/*-----------------------------------------批量查询数据,IN查询------------------------------------------*/
+	//1.展开IN查询参数
+	query, args, err := sqlx.In("select * from students where age in (?) and id >= ? order by id", []int{17, 18, 19}, 1)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	//2.rebind
+	query = Db.Rebind(query)
+
+	//3.执行查询
+	err = Db.Select(&students, query, args...)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	//4.遍历结构体切片
+	log.Println("批量查询数据,IN查询：-----------------------------------------------------------------------------------")
 	for _, student := range students {
 		log.Printf("id:%d, name:%s, age:%d, gender:%s, email:%s, created_at:%s\n", student.ID, student.Name, student.Age, student.Gender, student.Email, student.CreatedAt)
 	}
