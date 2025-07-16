@@ -52,9 +52,9 @@ func mysqlTest() {
 	//4.插入数据
 	mysql.Insert()
 
-	////5.查询数据
-	//mysql.Select()
-	//
+	//5.查询数据
+	mysql.Select()
+
 	////6.更新数据
 	//mysql.Update()
 	//
