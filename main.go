@@ -2,6 +2,7 @@
 package main
 
 import (
+	"sqlx-demo/mysql"
 	"sqlx-demo/sqlite"
 )
 
@@ -9,7 +10,10 @@ import (
 func main() {
 
 	//1.sqlite测试
-	sqliteTest()
+	//sqliteTest()
+
+	//2.mysql测试
+	mysqlTest()
 }
 
 // sqlite测试
@@ -35,4 +39,25 @@ func sqliteTest() {
 
 	//7.删除数据
 	sqlite.Delete()
+}
+
+func mysqlTest() {
+
+	//1.初始化mysql数据库
+	initMysqlDB(mysql.DriverName, mysql.Dsn)
+
+	//2.创建表
+	mysql.CreateTable()
+
+	////4.插入数据
+	//mysql.Insert()
+	//
+	////5.查询数据
+	//mysql.Select()
+	//
+	////6.更新数据
+	//mysql.Update()
+	//
+	////7.删除数据
+	//mysql.Delete()
 }
