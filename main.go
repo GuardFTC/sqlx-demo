@@ -10,10 +10,10 @@ import (
 func main() {
 
 	//1.sqlite测试
-	//sqliteTest()
+	sqliteTest()
 
 	//2.mysql测试
-	mysqlTest()
+	//mysqlTest()
 }
 
 // sqlite测试

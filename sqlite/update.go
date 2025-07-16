@@ -20,10 +20,12 @@ func Update() {
 	student.Age = 30
 
 	//3.更新数据
-	exec, err := Db.NamedExec("update students set age = :age where name = :name", student)
+	tx := Db.MustBegin()
+	exec, err := tx.NamedExec("update students set age = :age where name = :name", student)
 	if err != nil {
 		log.Fatal(err)
 	}
+	tx.Commit()
 
 	//4.打印受影响行数
 	log.Println("更新数据后查询：----------------------------------------------------------------------------------------")
@@ -49,10 +51,12 @@ func Update() {
 	query = Db.Rebind(query)
 
 	//3.根据条件批量更新
-	exec, err = Db.Exec(query, args...)
+	tx = Db.MustBegin()
+	exec, err = tx.Exec(query, args...)
 	if err != nil {
 		log.Fatal(err)
 	}
+	tx.Commit()
 
 	log.Println("更新数据后查询：----------------------------------------------------------------------------------------")
 

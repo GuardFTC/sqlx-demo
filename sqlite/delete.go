@@ -21,10 +21,12 @@ func Delete() {
 	}
 
 	//3.删除
-	exec, err := Db.NamedExec("delete from teachers where id = :id", teacher)
+	tx := Db.MustBegin()
+	exec, err := tx.NamedExec("delete from teachers where id = :id", teacher)
 	if err != nil {
 		log.Fatal(err)
 	}
+	tx.Commit()
 
 	//4.打印受影响行数
 	affected, _ := exec.RowsAffected()
@@ -47,10 +49,12 @@ func Delete() {
 	query = Db.Rebind(query)
 
 	//3.删除
-	exec, err = Db.Exec(query, args...)
+	tx = Db.MustBegin()
+	exec, err = tx.Exec(query, args...)
 	if err != nil {
 		log.Fatal(err)
 	}
+	tx.Commit()
 
 	//4.打印受影响行数
 	affected, _ = exec.RowsAffected()
@@ -77,10 +81,12 @@ func Delete() {
 
 	/*-----------------------------------------根据条件批量删除-------------------------------------------------*/
 	//1.删除
-	exec, err = Db.Exec("delete from students where gender = $1", "female")
+	tx = Db.MustBegin()
+	exec, err = tx.Exec("delete from students where gender = $1", "female")
 	if err != nil {
 		log.Fatal(err)
 	}
+	tx.Commit()
 
 	//2.打印受影响行数
 	affected, _ = exec.RowsAffected()
