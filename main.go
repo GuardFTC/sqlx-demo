@@ -32,4 +32,7 @@ func sqliteTest() {
 
 	//6.更新数据
 	sqlite.Update()
+
+	//7.删除数据
+	sqlite.Delete()
 }
