@@ -2,6 +2,8 @@
 package mysql
 
 import (
+	"log"
+
 	"sqlx-demo/model"
 )
 
@@ -13,14 +15,21 @@ func Insert() {
 
 	/*-----------------------------------------单个插入---------------------------------------------------*/
 	//2.在事务内执行InsertSQL
-	tx.Exec("INSERT INTO students(name,email,gender,age) VALUES(?,?,?,?)", "夏洛", "xialuo@xhs.com", "male", 18)
-	tx.Exec("INSERT INTO students(name,email,gender,age) VALUES(?,?,?,?)", "马冬梅", "madongmei@xhs.com", "female", 17)
+	exec, _ := tx.Exec("INSERT INTO students(name,email,gender,age) VALUES(?,?,?,?)", "夏洛", "xialuo@xhs.com", "male", 18)
+	id, _ := exec.LastInsertId()
+	log.Printf("插入数据成功，id为：%d", id)
+
+	exec, _ = tx.Exec("INSERT INTO students(name,email,gender,age) VALUES(?,?,?,?)", "马冬梅", "madongmei@xhs.com", "female", 17)
+	id, _ = exec.LastInsertId()
+	log.Printf("插入数据成功，id为：%d", id)
 
 	//3.在事务内执行InsertSQL，基于结构体进行字段赋值
 	teacher := new(model.Teacher)
 	teacher.Name = "王老师"
 	teacher.Subject = "语文"
-	tx.NamedExec("INSERT INTO teachers(name,subject) VALUES(:name,:subject)", teacher)
+	exec, _ = tx.NamedExec("INSERT INTO teachers(name,subject) VALUES(:name,:subject)", teacher)
+	id, _ = exec.LastInsertId()
+	log.Printf("插入数据成功，id为：%d", id)
 
 	/*-----------------------------------------批量插入---------------------------------------------------*/
 	//4.创建student切片
@@ -32,7 +41,11 @@ func Insert() {
 	}
 
 	//5.批量插入
-	tx.NamedExec("INSERT INTO students(name,email,gender,age) VALUES (:name,:email,:gender,:age)", students)
+	exec, _ = tx.NamedExec("INSERT INTO students(name,email,gender,age) VALUES (:name,:email,:gender,:age)", students)
+	id, _ = exec.LastInsertId()
+	for i := range len(students) {
+		log.Printf("插入数据成功，id为：%d", id+int64(i))
+	}
 
 	//自定义版本批量插入，更加原始，但是适配性更强
 	/*//5.定义初始SQL
