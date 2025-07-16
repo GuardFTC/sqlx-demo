@@ -30,15 +30,15 @@ func sqliteTest() {
 
 	//4.插入数据
 	sqlite.Insert()
-	//
-	////5.查询数据
-	//sqlite.Select()
-	//
-	////6.更新数据
-	//sqlite.Update()
-	//
-	////7.删除数据
-	//sqlite.Delete()
+
+	//5.查询数据
+	sqlite.Select()
+
+	//6.更新数据
+	sqlite.Update()
+
+	//7.删除数据
+	sqlite.Delete()
 }
 
 func mysqlTest() {
@@ -54,13 +54,13 @@ func mysqlTest() {
 
 	//4.插入数据
 	mysql.Insert()
-	//
-	////5.查询数据
-	//mysql.Select()
-	//
-	////6.更新数据
-	//mysql.Update()
-	//
-	////7.删除数据
-	//mysql.Delete()
+
+	//5.查询数据
+	mysql.Select()
+
+	//6.更新数据
+	mysql.Update()
+
+	//7.删除数据
+	mysql.Delete()
 }
