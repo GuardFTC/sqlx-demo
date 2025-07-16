@@ -46,7 +46,10 @@ func mysqlTest() {
 	//1.初始化mysql数据库
 	initMysqlDB(mysql.DriverName, mysql.Dsn)
 
-	//2.创建表
+	//2.确保最终数据库链接被关闭
+	defer mysql.Db.Close()
+
+	//3.创建表
 	mysql.CreateTable()
 
 	//4.插入数据
@@ -58,6 +61,6 @@ func mysqlTest() {
 	//6.更新数据
 	mysql.Update()
 
-	////7.删除数据
-	//mysql.Delete()
+	//7.删除数据
+	mysql.Delete()
 }
