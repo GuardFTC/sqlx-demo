@@ -49,9 +49,9 @@ func mysqlTest() {
 	//2.创建表
 	mysql.CreateTable()
 
-	////4.插入数据
-	//mysql.Insert()
-	//
+	//4.插入数据
+	mysql.Insert()
+
 	////5.查询数据
 	//mysql.Select()
 	//
