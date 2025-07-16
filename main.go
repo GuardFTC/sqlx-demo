@@ -55,9 +55,9 @@ func mysqlTest() {
 	//5.查询数据
 	mysql.Select()
 
-	////6.更新数据
-	//mysql.Update()
-	//
+	//6.更新数据
+	mysql.Update()
+
 	////7.删除数据
 	//mysql.Delete()
 }
