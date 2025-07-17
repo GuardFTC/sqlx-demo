@@ -16,7 +16,7 @@ func Select() {
 	var students []model.Student
 
 	//2.执行查询
-	err := Db.Select(&students, "select * from students where age = $1 order by id desc", 18)
+	err := Db.Select(&students, "select * from students where age = ? order by id desc", 18)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -54,7 +54,7 @@ func Select() {
 	var teacher model.Teacher
 
 	//2.执行查询
-	err = Db.Get(&teacher, "select * from teachers where id = $1", 1)
+	err = Db.Get(&teacher, "select * from teachers where id = ?", 1)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -69,7 +69,7 @@ func Select() {
 	var student model.Student
 
 	//2.执行查询
-	rows, err := Db.Queryx("select * from students where age = $1 order by id desc", 18)
+	rows, err := Db.Queryx("select * from students where age = ? order by id desc", 18)
 	if err != nil {
 		log.Fatal(err)
 	}

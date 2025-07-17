@@ -14,7 +14,7 @@ func Update() {
 	/*-----------------------------------------根据主键ID更新---------------------------------------------------*/
 	//1.查询数据
 	var student model.Student
-	Db.Get(&student, "select * from students where name = $1", "夏洛")
+	Db.Get(&student, "select * from students where name = ?", "夏洛")
 
 	//2.修改年龄
 	student.Age = 30
@@ -33,7 +33,7 @@ func Update() {
 	log.Printf("更新数据成功，受影响的行数：%d\n", affected)
 
 	//5.再次查询
-	Db.Get(&student, "select * from students where name = $1", "夏洛")
+	Db.Get(&student, "select * from students where name = ?", "夏洛")
 
 	//6.打印信息
 	log.Printf("id:%d,name:%s,age:%d,gender:%s,email:%s,created_at:%s\n",
