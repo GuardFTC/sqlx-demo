@@ -15,7 +15,7 @@ func Delete() {
 	var teacher model.Teacher
 
 	//2.根据主键ID查询
-	err := Db.Get(&teacher, "select * from teachers where id = $1", 1)
+	err := Db.Get(&teacher, "select * from teachers where id = ?", 1)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -33,7 +33,7 @@ func Delete() {
 	log.Printf("删除数据成功，受影响的行数：%d\n", affected)
 
 	//5.再次查询，因为已经被删除了，所以查询不到数据
-	err = Db.Get(&teacher, "select * from teachers where id = $1", 1)
+	err = Db.Get(&teacher, "select * from teachers where id = ?", 1)
 	if err != nil {
 		log.Println(err)
 	}
@@ -82,7 +82,7 @@ func Delete() {
 	/*-----------------------------------------根据条件批量删除-------------------------------------------------*/
 	//1.删除
 	tx = Db.MustBegin()
-	exec, err = tx.Exec("delete from students where gender = $1", "female")
+	exec, err = tx.Exec("delete from students where gender = ?", "female")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -93,7 +93,7 @@ func Delete() {
 	log.Printf("删除数据成功，受影响的行数：%d\n", affected)
 
 	//3.查询验证
-	err = Db.Select(&students, "select * from students where gender = $1", "female")
+	err = Db.Select(&students, "select * from students where gender = ?", "female")
 	if err != nil {
 		log.Println(err)
 	}
